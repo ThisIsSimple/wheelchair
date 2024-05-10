@@ -45,10 +45,6 @@ const styles = {
   ],
 };
 
-interface MapProps {
-  center: { lat: number; lng: number };
-}
-
 export const Map = observer(() => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",

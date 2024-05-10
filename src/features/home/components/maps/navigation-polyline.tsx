@@ -2,8 +2,6 @@ import { observer } from "mobx-react";
 import { navigationStore } from "../../stores/navigation-store";
 import { Marker, Polyline } from "@react-google-maps/api";
 import { toJS } from "mobx";
-import { useEffect } from "react";
-import { mapStore } from "../../stores/map-store";
 
 export const NavigationPolyline = observer(() => {
   console.log(toJS(navigationStore.currentNavigationInfo));

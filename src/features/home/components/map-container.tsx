@@ -1,7 +1,7 @@
 import { useGeolocated } from "react-geolocated";
 import { Map } from "./map";
 import { useEffect } from "react";
-import { runInAction } from "mobx";
+import { runInAction, toJS } from "mobx";
 import { mapStore } from "../stores/map-store";
 import { observer } from "mobx-react";
 
@@ -22,6 +22,7 @@ export const MapContainer = observer(() => {
           lat: coords.latitude,
           lng: coords.longitude,
         };
+        console.log(toJS(mapStore.currentLocation));
       });
     }
   }, [coords, isGeolocationAvailable, isGeolocationEnabled]);

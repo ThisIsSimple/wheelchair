@@ -28,11 +28,6 @@ export const HomePage = observer(() => {
         getPosition();
         runInAction(() => {
           mapStore.centerLocation = mapStore.currentLocation;
-          if (coords)
-            mapStore.currentLocation = {
-              lat: coords.latitude,
-              lng: coords.longitude,
-            };
         });
       }, 1000);
     }

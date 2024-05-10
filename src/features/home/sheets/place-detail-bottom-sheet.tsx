@@ -14,8 +14,8 @@ export const PlaceDetailBottomSheet = observer(() => {
   const handleNavigate = async () => {
     try {
       appStore.isLoading = true;
-      toast.success("길찾기를 시작합니다.");
       await navigationStore.startNavigation();
+      toast.success("길찾기를 시작합니다.");
     } catch (e) {
       console.error(e);
       toast.error("길찾기에 실패했습니다.");
