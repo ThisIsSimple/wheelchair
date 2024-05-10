@@ -1,16 +1,16 @@
 import { supabase } from "../../utils/supabase";
-import { Place } from "./types";
 
-export const getNearbyPlaces = async (
+export const getAccessiblePlaces = async (
   lat: number,
   lng: number,
   distance: number,
-) => {};
-
-export const getAccessiblePlaces: Promise<Place[]> = async () => {
-  const response = await supabase
-    .from("places")
-    .select("*")
-    .or("is_accessibility_enterance.eq.1, is_accessibility_parking.eq.1");
+  checkAccessibility: boolean,
+) => {
+  const response = await supabase.rpc("nearby_places", {
+    lat,
+    lng,
+    d: distance,
+    accessibility: checkAccessibility,
+  });
   return response.data;
 };

@@ -4,8 +4,10 @@ import { FilterBar } from "./components/filter-bar";
 import { PlaceDetailBottomSheet } from "./sheets/place-detail-bottom-sheet";
 import { SearchBottomSheet } from "./sheets/search-bottom-sheet";
 import { mapStore } from "./stores/map-store";
+import { observer } from "mobx-react";
+import { SuggestionContainer } from "./components/suggestion/container";
 
-export const HomePage = () => {
+export const HomePage = observer(() => {
   return (
     <div>
       {!mapStore.isNavigationMode ? (
@@ -31,8 +33,14 @@ export const HomePage = () => {
         }}
       />
 
+      {!mapStore.isNavigationMode ? (
+        <div className="fixed bottom-0 left-0 w-full z-[1]">
+          <SuggestionContainer />
+        </div>
+      ) : null}
+
       {!mapStore.isNavigationMode ? <PlaceDetailBottomSheet /> : null}
       {!mapStore.isNavigationMode ? <SearchBottomSheet /> : null}
     </div>
   );
-};
+});

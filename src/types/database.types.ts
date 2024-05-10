@@ -56,6 +56,7 @@ export type Database = {
           location: unknown | null
           name: string | null
           opening_hours: string | null
+          thumbnail: string | null
         }
         Insert: {
           address?: string | null
@@ -67,6 +68,7 @@ export type Database = {
           location?: unknown | null
           name?: string | null
           opening_hours?: string | null
+          thumbnail?: string | null
         }
         Update: {
           address?: string | null
@@ -78,6 +80,7 @@ export type Database = {
           location?: unknown | null
           name?: string | null
           opening_hours?: string | null
+          thumbnail?: string | null
         }
         Relationships: []
       }
@@ -187,6 +190,27 @@ export type Database = {
           phone: string
           corporate: string
           type: string
+        }[]
+      }
+      nearby_places: {
+        Args: {
+          lat: number
+          lng: number
+          d: number
+          accessibility: boolean
+        }
+        Returns: {
+          lat: number
+          lng: number
+          distance: number
+          google_place_id: string
+          name: string
+          address: string
+          address_detail: string
+          is_accessibility_entrance: boolean
+          is_accessibility_parking: boolean
+          opening_hours: string
+          thumbnail: string
         }[]
       }
       nearby_toilets:

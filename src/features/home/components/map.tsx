@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import { MapContent } from "./map-content";
 import { toLatLon, headingDistanceTo } from "geolocation-utils";
 import { runInAction } from "mobx";
 import { mapStore } from "../stores/map-store";
 import * as _ from "lodash";
+import { observer } from "mobx-react";
 
 const containerStyle = {
   width: "100vw",
@@ -48,7 +49,7 @@ interface MapProps {
   center: { lat: number; lng: number };
 }
 
-export const Map = ({ center }: MapProps) => {
+export const Map = observer(({ center }: MapProps) => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyB1-cCZgx8O_IY8py93a-tWe2Jpw6dKdpA",
@@ -73,6 +74,10 @@ export const Map = ({ center }: MapProps) => {
     setMap(null);
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => (mapStore.zoom = 17), 1000);
+  }, []);
+
   const changeMapCenter = _.debounce(() => {
     if (!map) return;
     const center = map.getCenter();
@@ -94,16 +99,21 @@ export const Map = ({ center }: MapProps) => {
     runInAction(() => (mapStore.mapWidth = hd.distance));
   }, 500);
 
+  const handleZoomChanged = () => {
+    if (!map) return;
+    runInAction(() => (mapStore.zoom = map.getZoom()));
+  };
+
   return isLoaded ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={center}
-      zoom={13}
+      zoom={mapStore.zoom}
       onLoad={onLoad}
       onUnmount={onUnmount}
       clickableIcons={false}
       onBoundsChanged={getVisualBounds}
-      onZoomChanged={getVisualBounds}
+      onZoomChanged={handleZoomChanged}
       onCenterChanged={changeMapCenter}
       // heading={1}
     >
@@ -112,4 +122,4 @@ export const Map = ({ center }: MapProps) => {
   ) : (
     <></>
   );
-};
+});

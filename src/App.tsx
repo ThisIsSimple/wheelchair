@@ -1,6 +1,9 @@
 import { Toaster } from "react-hot-toast";
 import { Router } from "./routes/router";
 import { useEffect } from "react";
+import { Loading } from "./shared/components/loading";
+
+import "swiper/css";
 
 function App() {
   let vh = 0;
@@ -14,6 +17,7 @@ function App() {
     <>
       <Router />
       <Toaster />
+      <Loading />
     </>
   );
 }

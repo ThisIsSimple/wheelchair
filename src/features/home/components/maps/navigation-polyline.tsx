@@ -1,6 +1,6 @@
 import { observer } from "mobx-react";
 import { navigationStore } from "../../stores/navigation-store";
-import { Polyline } from "@react-google-maps/api";
+import { Marker, Polyline } from "@react-google-maps/api";
 import { toJS } from "mobx";
 
 export const NavigationPolyline = observer(() => {
@@ -34,6 +34,12 @@ export const NavigationPolyline = observer(() => {
           strokeWeight: 2,
         }}
       />
+      {navigationStore.startPoint ? (
+        <Marker position={navigationStore.startPoint} />
+      ) : null}
+      {navigationStore.endPoint ? (
+        <Marker position={navigationStore.endPoint} />
+      ) : null}
     </>
   );
 });

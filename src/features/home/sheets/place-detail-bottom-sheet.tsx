@@ -4,19 +4,16 @@ import { placeDetailStore } from "../stores/place-detail-store";
 import { runInAction } from "mobx";
 import { useRef } from "react";
 import { navigationStore } from "../stores/navigation-store";
-import { mapStore } from "../stores/map-store";
 
 export const PlaceDetailBottomSheet = observer(() => {
   const focusRef = useRef<HTMLButtonElement>(null);
   const sheetRef = useRef<BottomSheetRef>(null);
 
   const handleNavigate = async () => {
-    const navigationInfo = await placeDetailStore.getNavigationOfPlaceDetail();
-    runInAction(() => {
-      navigationStore.currentNavigationInfo = navigationInfo ?? null;
-      mapStore.isNavigationMode = true;
-    });
+    await navigationStore.startNavigation();
   };
+
+  console.log(placeDetailStore.selectedPlace);
 
   return (
     <BottomSheet
@@ -31,29 +28,71 @@ export const PlaceDetailBottomSheet = observer(() => {
       expandOnContentDrag={true}
       className="no-scrollbar"
     >
-      <div className="no-scrollbar">
-        <header className="flex justify-between items-center p-3">
-          <div>
-            <h1 className="font-bold text-lg">
-              {placeDetailStore.selectedPlace?.name}
-            </h1>
-            <p className="text-sm text-gray-300">
-              {placeDetailStore.selectedPlace?.distance}m
-            </p>
-          </div>
-          <button
-            className="bg-blue-500 text-white rounded-full px-3 py-2 text-sm"
-            onClick={handleNavigate}
-          >
-            길찾기
-          </button>
-        </header>
+      {placeDetailStore.selectedPlace ? (
+        <div className="no-scrollbar">
+          <header className="flex justify-between items-center p-3">
+            <div>
+              <h1 className="font-bold text-lg">
+                {placeDetailStore.selectedPlace?.name}
+              </h1>
+              <p className="text-sm text-gray-400">
+                {Math.round(placeDetailStore.selectedPlace?.distance ?? 0)}m
+              </p>
+            </div>
+            <button
+              className="bg-blue-500 text-white rounded-full px-3 py-2 text-sm"
+              onClick={handleNavigate}
+            >
+              길찾기
+            </button>
+          </header>
 
-        <section>
-          {placeDetailStore.selectedPlace?.address}
-          <img src="https://cdn.aitimes.com/news/photo/202312/155726_166889_3425.jpg" />
-        </section>
-      </div>
+          <hr />
+
+          <section className="p-3">
+            <header className="mb-3">
+              <h2 className="font-bold text-base">휠체어 접근성</h2>
+            </header>
+
+            <div className="flex items-baseline gap-3">
+              {placeDetailStore.selectedPlace?.additionalInfo
+                ?.is_accessibility_parking ? (
+                <div className="flex flex-col items-center gap-5 mt-5">
+                  <i className="fa-solid fa-circle-parking fa-2xl" />
+                  <p className="text-sm">주차가능</p>
+                </div>
+              ) : null}
+
+              {placeDetailStore.selectedPlace?.additionalInfo
+                ?.is_accessibility_entrance ? (
+                <div className="flex flex-col items-center gap-5 mt-5">
+                  <i className="fa-solid fa-wheelchair fa-2xl" />
+                  <p className="text-sm">경사로 입구</p>
+                </div>
+              ) : null}
+
+              {!placeDetailStore.selectedPlace?.additionalInfo
+                ?.is_accessibility_parking &&
+              !placeDetailStore.selectedPlace?.additionalInfo
+                ?.is_accessibility_entrance ? (
+                <div className="flex flex-col items-center gap-5 mt-5">
+                  <i className="fa-solid fa-ban fa-2xl" />
+                  <p className="text-sm">제공안함</p>
+                </div>
+              ) : null}
+            </div>
+          </section>
+
+          <hr />
+
+          <section className="p-3">
+            {placeDetailStore.selectedPlace.address}
+            {placeDetailStore.selectedPlace.thumbnail ? (
+              <img src={placeDetailStore.selectedPlace.thumbnail} />
+            ) : null}
+          </section>
+        </div>
+      ) : null}
     </BottomSheet>
   );
 });

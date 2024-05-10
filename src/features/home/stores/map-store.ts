@@ -16,9 +16,11 @@ class MapStore {
   };
   mapWidth: number = 0;
 
+  zoom: number = 15;
+
   isNavigationMode: boolean = false;
-  showToilets: boolean = true;
-  showFacilities: boolean = true;
+  showToilets: boolean = false;
+  showFacilities: boolean = false;
   showPlaces: boolean = true;
 
   constructor() {
