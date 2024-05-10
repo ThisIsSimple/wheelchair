@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const URL =
-  "http://ec2-13-125-245-103.ap-northeast-2.compute.amazonaws.com:5000/near";
+const URL = "https://wheel.wafflediary.com/near";
 
 export const getNearbyPlaces = async (
   lat: number,

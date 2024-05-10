@@ -47,6 +47,7 @@ export const FilterBar = observer(() => {
     >
       {filters.map(({ name, action, activeColor, isActive }) => (
         <button
+          key={name}
           className={`flex-none px-2 py-1.5 rounded-lg bg-white shadow text-sm ${isActive ? activeColor : ""}`}
           onClick={action}
         >

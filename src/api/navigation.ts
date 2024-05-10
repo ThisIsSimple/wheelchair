@@ -29,8 +29,7 @@ export interface NavigationResponse {
   }[];
 }
 
-const BASE_URL =
-  "http://ec2-13-125-245-103.ap-northeast-2.compute.amazonaws.com:5000";
+const BASE_URL = "https://wheel.wafflediary.com";
 
 export const getNavigationByDirection = async (start: Point, end: Point) => {
   const response = await axios.post<NavigationResponse>(

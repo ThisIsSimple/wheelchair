@@ -4,13 +4,23 @@ import { placeDetailStore } from "../stores/place-detail-store";
 import { runInAction } from "mobx";
 import { useRef } from "react";
 import { navigationStore } from "../stores/navigation-store";
+import toast from "react-hot-toast";
+import { appStore } from "../../../shared/stores/app-store";
 
 export const PlaceDetailBottomSheet = observer(() => {
   const focusRef = useRef<HTMLButtonElement>(null);
   const sheetRef = useRef<BottomSheetRef>(null);
 
   const handleNavigate = async () => {
-    await navigationStore.startNavigation();
+    try {
+      appStore.isLoading = true;
+      await navigationStore.startNavigation();
+    } catch (e) {
+      console.error(e);
+      toast.error("길찾기에 실패했습니다.");
+    } finally {
+      appStore.isLoading = false;
+    }
   };
 
   console.log(placeDetailStore.selectedPlace);

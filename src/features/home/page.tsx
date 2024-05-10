@@ -1,4 +1,3 @@
-import { Map } from "./components/map";
 import { SearchBar } from "./components/search-bar";
 import { FilterBar } from "./components/filter-bar";
 import { PlaceDetailBottomSheet } from "./sheets/place-detail-bottom-sheet";
@@ -6,6 +5,7 @@ import { SearchBottomSheet } from "./sheets/search-bottom-sheet";
 import { mapStore } from "./stores/map-store";
 import { observer } from "mobx-react";
 import { SuggestionContainer } from "./components/suggestion/container";
+import { MapContainer } from "./components/map-container";
 
 export const HomePage = observer(() => {
   return (
@@ -26,15 +26,16 @@ export const HomePage = observer(() => {
         </div>
       ) : null}
 
-      <Map
-        center={{
-          lat: 37.239311,
-          lng: 127.0834,
-        }}
-      />
+      <MapContainer />
 
       {!mapStore.isNavigationMode ? (
-        <div className="fixed bottom-0 left-0 w-full z-[1]">
+        <div className="fixed bottom-0 left-0 w-full z-[1] flex flex-col">
+          <button
+            className="w-12 h-12 rounded-full bg-white shadow self-end mr-3"
+            onClick={mapStore.setToCurrentLocation}
+          >
+            <i className="fa-2xl fa-solid fa-location-crosshairs" />
+          </button>
           <SuggestionContainer />
         </div>
       ) : null}

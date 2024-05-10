@@ -13,6 +13,8 @@ import { searchStore } from "../stores/search-store";
 import { headingDistanceTo, toLatitudeLongitude } from "geolocation-utils";
 import { placeStore } from "../stores/place-store";
 import { suggestionStore } from "../stores/suggestion-store";
+import { ToiletMarkers } from "./maps/toilet-markers";
+import { FacilityMarkers } from "./maps/facility-markers";
 
 export const MapContent = observer(() => {
   const [toilets, setToilets] = useState<NearbyToilets>([]);
@@ -32,62 +34,22 @@ export const MapContent = observer(() => {
 
   return (
     <>
+      <MarkerF
+        position={mapStore.currentLocation}
+        icon={{
+          url: "/me.svg",
+          scaledSize: new google.maps.Size(32, 32),
+        }}
+      />
+
       <NavigationPolyline />
-      {!mapStore.isNavigationMode &&
-        mapStore.showToilets &&
-        toilets.map(({ id, lat, lng, name, distance }) => (
-          <MarkerF
-            key={id}
-            position={{ lat, lng }}
-            icon={{
-              url: "/toilet.svg",
-              scaledSize: new google.maps.Size(32, 32),
-            }}
-            onClick={() =>
-              (placeDetailStore.selectedPlace = new PlaceBase({
-                id: id,
-                name: name ?? "",
-                address: "",
-                distance,
-                location: { lat, lng },
-                additionalInfo: {
-                  is_accessibility_entrance: true,
-                  is_accessibility_parking: true,
-                  opening_hours: "",
-                },
-              }))
-            }
-          />
-        ))}
-      {!mapStore.isNavigationMode &&
-        mapStore.showFacilities &&
-        facilities.map((item) => {
-          const { id, name, address, distance, lat, lng } = item;
-          return (
-            <MarkerF
-              key={id}
-              position={{ lat, lng }}
-              icon={{
-                url: "/facility.svg",
-                scaledSize: new google.maps.Size(32, 32),
-              }}
-              onClick={() =>
-                (placeDetailStore.selectedPlace = new PlaceBase({
-                  id: id,
-                  name: name ?? "",
-                  address: address ?? "",
-                  distance,
-                  location: { lat, lng },
-                  additionalInfo: {
-                    is_accessibility_entrance: true,
-                    is_accessibility_parking: true,
-                    // opening_hours,
-                  },
-                }))
-              }
-            />
-          );
-        })}
+
+      {!mapStore.isNavigationMode && mapStore.showToilets && (
+        <ToiletMarkers toilets={toilets} />
+      )}
+      {!mapStore.isNavigationMode && mapStore.showFacilities && (
+        <FacilityMarkers facilities={facilities} />
+      )}
       {!mapStore.isNavigationMode &&
         mapStore.showPlaces &&
         searchStore.results.map((item) => {
@@ -100,6 +62,8 @@ export const MapContent = observer(() => {
             is_accessibility_parking,
             thumbnail,
           } = item;
+          const is_accessible =
+            is_accessibility_entrance || is_accessibility_parking;
           const { lat, lng } = location;
           const distance = headingDistanceTo(
             toLatitudeLongitude(mapStore.currentLocation),
@@ -110,7 +74,7 @@ export const MapContent = observer(() => {
               key={id}
               position={{ lat, lng }}
               icon={{
-                url: "/food.svg",
+                url: is_accessible ? "/food-check.svg" : "/food.svg",
                 scaledSize: new google.maps.Size(32, 32),
               }}
               onClick={() =>
@@ -149,12 +113,14 @@ export const MapContent = observer(() => {
             toLatitudeLongitude(mapStore.currentLocation),
             toLatitudeLongitude({ lat, lng }),
           ).distance;
+          const is_accessible =
+            is_accessibility_entrance || is_accessibility_parking;
           return (
             <MarkerF
               key={id}
               position={{ lat, lng }}
               icon={{
-                url: "/food.svg",
+                url: is_accessible ? "/food-check.svg" : "/food.svg",
                 scaledSize: new google.maps.Size(32, 32),
               }}
               onClick={() =>

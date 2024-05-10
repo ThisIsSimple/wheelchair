@@ -9,7 +9,7 @@ import { observer } from "mobx-react";
 
 const containerStyle = {
   width: "100vw",
-  height: "100vh",
+  height: "calc(var(--vh, 1vh) * 100)",
 };
 
 const styles = {
@@ -114,7 +114,8 @@ export const Map = observer(({ center }: MapProps) => {
       clickableIcons={false}
       onBoundsChanged={getVisualBounds}
       onZoomChanged={handleZoomChanged}
-      onCenterChanged={changeMapCenter}
+      // onCenterChanged={changeMapCenter}
+      onDragEnd={changeMapCenter}
       // heading={1}
     >
       <MapContent />

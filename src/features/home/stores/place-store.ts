@@ -12,8 +12,6 @@ class PlaceStore {
   async init() {
     const { lat, lng } = mapStore.centerLocation;
     const response = await getAccessiblePlaces(lat, lng, 100000, true);
-
-    console.log(response);
   }
 }
 

@@ -2,6 +2,7 @@ import { FormEventHandler, useState } from "react";
 import { searchStore } from "../stores/search-store";
 import { appStore } from "../../../shared/stores/app-store";
 import { observer } from "mobx-react";
+import toast from "react-hot-toast";
 
 export const SearchBar = observer(() => {
   const [query, setQuery] = useState("");
@@ -11,9 +12,15 @@ export const SearchBar = observer(() => {
 
     if (query.length < 2) return;
 
-    appStore.isLoading = true;
-    await searchStore.searchNearbyPlaces(query);
-    appStore.isLoading = false;
+    try {
+      appStore.isLoading = true;
+      await searchStore.searchNearbyPlaces(query);
+    } catch (e) {
+      console.error(e);
+      toast.error("검색에 실패했어요 :(");
+    } finally {
+      appStore.isLoading = false;
+    }
   };
 
   return (
