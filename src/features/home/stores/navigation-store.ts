@@ -5,6 +5,7 @@ import { placeDetailStore } from "./place-detail-store";
 import { mapStore } from "./map-store";
 
 class NavigationStore {
+  currentInfo: Record<string, string> | null = null;
   startPoint: Point | null = null;
   endPoint: Point | null = null;
   currentNavigationInfo: NavigationResponse | null = null;
@@ -20,10 +21,11 @@ class NavigationStore {
       navigationStore.endPoint =
         placeDetailStore.selectedPlace?.location ?? null;
       navigationStore.currentNavigationInfo = navigationInfo ?? null;
+      mapStore.centerLocation = navigationStore.startPoint;
       mapStore.isNavigationMode = true;
 
       if (this.startPoint) mapStore.centerLocation = this.startPoint;
-      mapStore.zoom = 20;
+      mapStore.zoom = 18;
     });
   }
 }

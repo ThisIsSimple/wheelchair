@@ -23,8 +23,6 @@ export const PlaceDetailBottomSheet = observer(() => {
     }
   };
 
-  console.log(placeDetailStore.selectedPlace);
-
   return (
     <BottomSheet
       open={!!placeDetailStore.selectedPlace}

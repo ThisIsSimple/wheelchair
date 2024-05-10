@@ -33,10 +33,10 @@ class MapStore {
     this.zoom = 18;
   };
 
-  setToCurrentLocation = async () => {
+  setToCurrentLocation = () => {
     this.centerLocation = this.currentLocation;
     this.zoom = 16;
-    await suggestionStore.init();
+    suggestionStore.init();
   };
 }
 

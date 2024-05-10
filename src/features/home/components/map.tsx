@@ -49,14 +49,14 @@ interface MapProps {
   center: { lat: number; lng: number };
 }
 
-export const Map = observer(({ center }: MapProps) => {
+export const Map = observer(() => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyB1-cCZgx8O_IY8py93a-tWe2Jpw6dKdpA",
   });
   const [map, setMap] = React.useState<GoogleMap | null>(null);
   const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(center);
+    const bounds = new window.google.maps.LatLngBounds();
     map.setOptions({ styles: styles.hide });
     map.setOptions({
       zoomControl: false,
@@ -107,7 +107,7 @@ export const Map = observer(({ center }: MapProps) => {
   return isLoaded ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
-      center={center}
+      center={mapStore.centerLocation}
       zoom={mapStore.zoom}
       onLoad={onLoad}
       onUnmount={onUnmount}
