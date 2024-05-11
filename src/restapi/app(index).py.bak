@@ -1,0 +1,76 @@
+# -- coding: utf-8 --
+from flask import Flask, request, render_template
+from PyNaver import NaverCloudPlatform
+from urllib.request import Request, urlopen
+import json
+import urllib
+import requests
+import sys
+
+app = Flask(__name__)
+# 네이버 애플리케이션 인증 정보
+client_id = ''
+client_secret = ''
+skt_url = "https://apis.openapi.sk.com/tmap/routes/pedestrian?version=1&callback=function"
+skt_appkey = ''
+address = ['경기도 수원시 영통구 영통동 994-6', '경기도 용인시 기흥구 서천동 1']
+#address = ['asdf', '경기도 용인시 기흥구 서천동 1']
+
+def get_location(loc):
+	# 네이버 클라우드 플랫폼 API 인스턴스 생성
+	api = NaverCloudPlatform(client_id, client_secret)
+	res = api.geocoding(loc)
+	if res['meta']['totalCount'] == 1 : 
+		lat = res['addresses'][0]['y']
+		lon = res['addresses'][0]['x']
+		return lon, lat
+	else:
+		return 0
+
+def naver_directions(start, goal, option=''):
+	api = NaverCloudPlatform(client_id, client_secret)
+	res = api.directions15(start=start, goal=goal, waypoint='', option='')
+	#print(res)
+
+def skt_directions(start, goal, option):
+	payload = {
+		"startX": float(start[0]),
+		"startY": float(start[1]),
+		"endX": float(goal[0]),
+		"endY": float(goal[1]),
+		"startName": address[0], #urllib.parse.quote('출발', encoding='utf-8'),
+		"endName": address[1], #urllib.parse.quote('도착', encoding='utf-8'),
+		"searchOption": option
+	}
+	headers = {
+		"accept": "application/json",
+		"content-type": "application/json",
+		"appKey": skt_appkey
+	}
+
+	response = requests.post(skt_url, json=payload, headers=headers)
+
+	#print(response.text)
+
+@app.route("/", methods=['GET', 'POST'])
+def index():
+	if request.method == 'POST':
+		parm = request.get_json()
+		start = get_location(parm['start'])
+		end = get_location(parm['end'])
+		option = str(parm['option'])
+		print(start[0], end, option)
+		if start==0 or end==0:
+			return "Not Found Address X,Y"
+
+		option = '30' #avoid stairs
+		#skt_directions(start, goal, option)
+		#print(start, goal)
+
+		return render_template("index.html", start=start, end=end, option=option)
+	else:
+		return "Input POST"
+
+if __name__ =='__main__':
+	print(sys.argv)
+	app.run(debug=True, host='0.0.0.0', port=80)
