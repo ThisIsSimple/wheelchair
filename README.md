@@ -1,30 +1,38 @@
-# React + TypeScript + Vite
+# 🏆 2024년 Khuthon(경희대학교 해커톤) 우수상
+- 해커톤 주제 : "환경과 소프트웨어 : 지속가능한 지구와 인간사회를 위한 ESG 관점의 고찰"
+<br>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 프로젝트 주제 : 장애인 이동권 보장 프로젝트
+<div align="center">
+  <img src = "https://github.com/eu2525/wheelchair/assets/49024115/095c3ed5-7a8a-49b8-9f82-ae421cb573fd" width="400px" height="300px">
+  <img src = "https://github.com/eu2525/wheelchair/assets/49024115/9b64569a-add5-4077-a1c3-e59d56542549" width="400px" height="300px">
+</div>
 
-Currently, two official plugins are available:
+<p>
+저희 팀은 'ESG' 중 'S'인 사회 환경을 개선하는 배리어프리 프로젝트를 진행했습니다. 
+  
+기존의 길 찾기, 지도 서비스는 최적 경로만을 제공하기 때문에 계단과 같은 휠체어 이용자들을 위해 고려되어야 할 중요한 요소들을 고려하지 않습니다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+또한, 힘들게 찾아간 음식점, 시설에는 휠체어에 대한 접근성을 고려하지 않는 건물이 많습니다. <br> 실제로 경기도 모범 음식점 중 휠체어를 이용할 수 있는 시설은 단 **30%** 에 불과합니다.
 
-## Expanding the ESLint configuration
+저희는 이러한 문제점을 해결하기 위해 <ins>**휠체어 이용자를 위한 길 찾기 서비스**</ins>를 계획했습니다.
+</p>
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+# 프로젝트 아키텍쳐
+![image](https://github.com/eu2525/wheelchair/assets/49024115/20b93f8a-71e0-4e89-8705-a26fce5af880)
 
-- Configure the top-level `parserOptions` property like this:
+# 기능 소개
+1. 건물의 휠체어 접근성 시설 구비 유무
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+    - 휠체어 이용가능 주차장, 휠체어 이용가능 경사로 구비 유무 정보 제공
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. 계단 없이 이동할 수 있는 경로 제공하는 네비게이션 기능
+
+    - 계단 없이 편하게 이동할 수 있는 최적 경로를 제공합니다.
+
+3. 장애인 지원시설, 휠체어 접근이 가능한 공중 화장실 정보 제공
+
+   - 휠체어 접근성이 있는 주변의 공공시설 정보 제공합니다
+
+# 실제 서비스 화면
+<작성 중>
