@@ -9,7 +9,7 @@
 </div>
 
 <p>
-저희 팀은 'ESG' 중 'S'인 사회 환경을 개선하는 배리어프리 프로젝트를 진행했습니다. 
+저희 팀은 'ESG' 중 'S'인 사회적 환경을 개선하는 배리어프리 프로젝트를 진행했습니다. 
   
 기존의 길 찾기, 지도 서비스는 최적 경로만을 제공하기 때문에 계단과 같은 휠체어 이용자들을 위해 고려되어야 할 중요한 요소들을 고려하지 않습니다.
 
@@ -17,9 +17,6 @@
 
 저희는 이러한 문제점을 해결하기 위해 <ins>**휠체어 이용자를 위한 길 찾기 서비스**</ins>를 계획했습니다.
 </p>
-
-# 프로젝트 아키텍쳐
-![image](https://github.com/eu2525/wheelchair/assets/49024115/20b93f8a-71e0-4e89-8705-a26fce5af880)
 
 # 기능 소개
 1. 건물의 휠체어 접근성 시설 구비 유무
@@ -35,4 +32,11 @@
    - 휠체어 접근성이 있는 주변의 공공시설 정보 제공합니다
 
 # 실제 서비스 화면
-<작성 중>
+<div align="center">
+  <img src = "https://github.com/eu2525/wheelchair/assets/49024115/4b234c7e-fbb9-4637-90bf-f0b8a13ed988" width="250px" height="300px">
+  <img src = "https://github.com/eu2525/wheelchair/assets/49024115/15fb5618-b9b3-4611-9f81-65e1d58ef37f" width="600px" height="300px">
+</div>
+
+
+# 프로젝트 아키텍쳐
+![image](https://github.com/eu2525/wheelchair/assets/49024115/20b93f8a-71e0-4e89-8705-a26fce5af880)
