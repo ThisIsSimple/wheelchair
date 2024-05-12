@@ -33,8 +33,8 @@
 
 # 실제 서비스 화면
 <div align="center">
-  <img src = "https://github.com/eu2525/wheelchair/assets/49024115/4b234c7e-fbb9-4637-90bf-f0b8a13ed988" width="100px" height="200px">
-  <img src = "https://github.com/eu2525/wheelchair/assets/49024115/15fb5618-b9b3-4611-9f81-65e1d58ef37f" width="400px" height="200px">
+  <img src = "https://github.com/eu2525/wheelchair/assets/49024115/4b234c7e-fbb9-4637-90bf-f0b8a13ed988" width="150px" height="250px">
+  <img src = "https://github.com/eu2525/wheelchair/assets/49024115/15fb5618-b9b3-4611-9f81-65e1d58ef37f" width="500px" height="250px">
 </div>
 
 
